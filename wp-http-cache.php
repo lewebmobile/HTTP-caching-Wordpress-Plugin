@@ -95,13 +95,8 @@ if (!class_exists('lwm_http_caching')) {
             
             //Actions        
             add_action("admin_menu", array(&$this,"admin_menu_link"));
-	    add_action("send_headers", array(&$this, "set_http_headers"));
+	    add_action("wp", array(&$this, "set_http_headers"));
 
-                       
-            /*
-            add_action("wp_head", array(&$this,"add_css"));
-            add_action('wp_print_scripts', array(&$this, 'add_js'));
-            */
             
         }
         
@@ -109,9 +104,11 @@ if (!class_exists('lwm_http_caching')) {
 	/**
         * Send proper last-modified header on keyword-marked pages
 	*/        
-	function set_http_headers($wpobj) {
- 	    if ($this->options["default"]=="apply" ||
-	        ) {
+	function set_http_headers($wbobj) {
+   	    global $post;
+	    $post_status = get_post_meta($post->ID, $this->options["keyword"], true);
+ 	    if (($this->options["default"]=="apply" && !$post_status=="false") 
+	         || $post_status == "true") {
 		       // Coming from http://svn.automattic.com/wordpress/tags/2.1/wp-includes/classes.php
 		       // where it's only used for feeds
 			if ( $wpobj->query_vars['withcomments']
@@ -220,9 +217,9 @@ if (!class_exists('lwm_http_caching')) {
                 <form method="post" id="lwm_http_caching_options">
                 <?php wp_nonce_field('lwm_http_caching-update-options'); ?>
 		<fieldset><legend><?php _e('Default behavior:', $this->localizationDomain); ?></legend>
-               <label for='lwm_http_caching_default_dont'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_dont" value="dontapply" <?php if ($this->options['lwm_http_caching_default']=='dontapply') { echo " checked='checked'";} ) ;?>"/><?php _e('Don’t apply unless keyword is set', $this->localizationDomain);?></label> <label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";} ) ;?>"/><?php _e('Apply unless keyword is set to false', $this->localizationDomain);?></label>
+               <label for='lwm_http_caching_default_dont'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_dont" value="dontapply" <?php if ($this->options['lwm_http_caching_default']=='dontapply') { echo " checked='checked'";} ) ;?>"/><?php _e('Don’t apply unless the custom field is set to true', $this->localizationDomain);?></label> <label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";} ) ;?>"/><?php _e('Apply unless custom field is set to false', $this->localizationDomain);?></label>
 	       </fieldset>
-	       <p><label for='lwm_http_caching_keyword'><?php _e("Keyword used to mark pages/posts", $this->locaizationDomain);?>: <input type="text" name="lwm_http_caching_keyword" value="<?php echo $this->options['lwm_http_caching_keyword'];?>" id="lwm_http_caching_keyword"/></label></p>
+	       <p><label for='lwm_http_caching_keyword'><?php _e("Custom field used to mark pages/posts", $this->locaizationDomain);?>: <input type="text" name="lwm_http_caching_keyword" value="<?php echo $this->options['lwm_http_caching_keyword'];?>" id="lwm_http_caching_keyword"/></label></p>
 
 	       <p><input type="submit" name="lwm_http_caching_save" value="Save" /></p>
                 </form>
