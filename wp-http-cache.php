@@ -104,21 +104,22 @@ if (!class_exists('lwm_http_caching')) {
 	/**
         * Send proper last-modified header on keyword-marked pages
 	*/        
-	function set_http_headers($wbobj) {
+	function set_http_headers() {
    	    global $post;
+	    global $wp_query;
 	    $post_status = get_post_meta($post->ID, $this->options["keyword"], true);
  	    if (($this->options["default"]=="apply" && !$post_status=="false") 
 	         || $post_status == "true") {
 		       // Coming from http://svn.automattic.com/wordpress/tags/2.1/wp-includes/classes.php
 		       // where it's only used for feeds
-			if ( $wpobj->query_vars['withcomments']
-				|| ( !$wpobj->query_vars['withoutcomments']
-					&& ( $wpobj->query_vars['p']
-						|| $wpobj->query_vars['name']
-						|| $wpobj->query_vars['page_id']
-						|| $wpobj->query_vars['pagename']
-						|| $wpobj->query_vars['attachment']
-						|| $wpobj->query_vars['attachment_id']
+			if ( $wp_query->query_vars['withcomments']
+				|| ( !$wp_query->query_vars['withoutcomments']
+					&& ( $wp_query->query_vars['p']
+						|| $wp_query->query_vars['name']
+						|| $wp_query->query_vars['page_id']
+						|| $wp_query->query_vars['pagename']
+						|| $wp_query->query_vars['attachment']
+						|| $wp_query->query_vars['attachment_id']
 					)
 				)
 			)
