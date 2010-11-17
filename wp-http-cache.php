@@ -127,7 +127,7 @@ if (!class_exists('lwm_http_caching')) {
 			} else {
 				$wp_last_modified_ts =  get_lastpostmodified('GMT');
 			}
-			if $wp_last_modified_ts) {
+			if ($wp_last_modified_ts) {
   			        $wp_last_modified = mysql2date('D, d M Y H:i:s', $wp_last_modified_ts, 0).' GMT';
 			        $wp_etag = '"' . md5($wp_last_modified) . '"';
 			        @header("Last-Modified: $wp_last_modified");
