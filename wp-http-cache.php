@@ -143,9 +143,9 @@ if (!class_exists('lwm_http_caching')) {
 			// If string is empty, return 0. If not, attempt to parse into a timestamp
 			$client_modified_timestamp = $client_last_modified ? strtotime($client_last_modified) : 0;
 
-			if ( $wp_last_modified_ts && ($client_last_modified && $client_etag) ?
+			if ( $wp_last_modified_ts && (($client_last_modified && $client_etag) ?
 					 (($client_modified_timestamp >= $wp_last_modified_ts) && ($client_etag == $wp_etag)) :
-					 (($client_modified_timestamp >= $wp_last_modified_ts) || ($client_etag == $wp_etag)) ) {
+					 (($client_modified_timestamp >= $wp_last_modified_ts) || ($client_etag == $wp_etag))) ) {
 				status_header( 304 );
 				exit;
 			}
