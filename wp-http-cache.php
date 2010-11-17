@@ -122,13 +122,17 @@ if (!class_exists('lwm_http_caching')) {
 						|| $wp_query->query_vars['attachment_id']
 					)
 				)
-			)
-				$wp_last_modified = mysql2date('D, d M Y H:i:s', get_lastcommentmodified('GMT'), 0).' GMT';
-			else
-				$wp_last_modified = mysql2date('D, d M Y H:i:s', get_lastpostmodified('GMT'), 0).' GMT';
-			$wp_etag = '"' . md5($wp_last_modified) . '"';
-			@header("Last-Modified: $wp_last_modified");
-			@header("ETag: $wp_etag");
+			) {
+				$wp_last_modified_ts = get_lastcommentmodified('GMT');
+			} else {
+				$wp_last_modified_ts =  get_lastpostmodified('GMT');
+			}
+			if $wp_last_modified_ts) {
+  			        $wp_last_modified = mysql2date('D, d M Y H:i:s', $wp_last_modified_ts, 0).' GMT';
+			        $wp_etag = '"' . md5($wp_last_modified) . '"';
+			        @header("Last-Modified: $wp_last_modified");
+			        @header("ETag: $wp_etag");
+                        }
 
 			// Support for Conditional GET
 			if (isset($_SERVER['HTTP_IF_NONE_MATCH']))
@@ -139,12 +143,9 @@ if (!class_exists('lwm_http_caching')) {
 			// If string is empty, return 0. If not, attempt to parse into a timestamp
 			$client_modified_timestamp = $client_last_modified ? strtotime($client_last_modified) : 0;
 
-			// Make a timestamp for our most recent modification...
-			$wp_modified_timestamp = strtotime($wp_last_modified);
-
 			if ( ($client_last_modified && $client_etag) ?
-					 (($client_modified_timestamp >= $wp_modified_timestamp) && ($client_etag == $wp_etag)) :
-					 (($client_modified_timestamp >= $wp_modified_timestamp) || ($client_etag == $wp_etag)) ) {
+					 (($client_modified_timestamp >= $wp_last_modified_ts) && ($client_etag == $wp_etag)) :
+					 (($client_modified_timestamp >= $wp_last_modified_ts) || ($client_etag == $wp_etag)) ) {
 				status_header( 304 );
 				exit;
 			}
