@@ -1,0 +1,3 @@
+By default, Wordpress gives up on sending any Last-Modified header to the client when serving HTML content (pages, blog posts), on the assumption that the said content might contain content from sources it doesn't know about.
+
+This plugin fixes this by sending the said header for pages and posts marked with the "static" keyword.
