@@ -122,23 +122,16 @@ if (!class_exists('lwm_http_caching')) {
 			}
 			if ($wp_last_modified_ts) {
   			        $wp_last_modified = mysql2date('D, d M Y H:i:s', $wp_last_modified_ts, 0).' GMT';
-			        $wp_etag = '"' . md5($wp_last_modified) . '"';
 			        @header("Last-Modified: $wp_last_modified");
-			        @header("ETag: $wp_etag");
                         }
 
 			// Support for Conditional GET
-			if (isset($_SERVER['HTTP_IF_NONE_MATCH']))
-				$client_etag = stripslashes(stripslashes($_SERVER['HTTP_IF_NONE_MATCH']));
-			else $client_etag = false;
 
 			$client_last_modified = trim( $_SERVER['HTTP_IF_MODIFIED_SINCE']);
 			// If string is empty, return 0. If not, attempt to parse into a timestamp
 			$client_modified_timestamp = $client_last_modified ? strtotime($client_last_modified) : 0;
 
-			if ( $wp_last_modified_ts && (($client_last_modified && $client_etag) ?
-					 (($client_modified_timestamp >= $wp_last_modified_ts) && ($client_etag == $wp_etag)) :
-					 (($client_modified_timestamp >= $wp_last_modified_ts) || ($client_etag == $wp_etag))) ) {
+			if ( $wp_last_modified_ts && $client_modified_timestamp >= $wp_last_modified_ts ) {
 				status_header( 304 );
 				exit;
 			}
