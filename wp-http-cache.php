@@ -116,10 +116,7 @@ if (!class_exists('lwm_http_caching')) {
 		       // this only works when patches in 
 		       // http://core.trac.wordpress.org/ticket/14922
 		       // have been applied
-			$wp_last_modified_ts = get_lastcommentmodified('GMT');
-			if (!$wp_last_modified_ts) {
-				$wp_last_modified_ts =  get_lastpostmodified('GMT');
-			}
+			$wp_last_modified_ts = max(get_lastcommentmodified('GMT'), get_lastpostmodified('GMT'));
 			if ($wp_last_modified_ts) {
   			        $wp_last_modified = mysql2date('D, d M Y H:i:s', $wp_last_modified_ts, 0).' GMT';
 			        @header("Last-Modified: $wp_last_modified");
