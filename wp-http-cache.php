@@ -107,8 +107,8 @@ if (!class_exists('lwm_http_caching')) {
 	function set_http_headers() {
    	    global $post;
 	    global $wp_query;
-	    $post_status = get_post_meta($post->ID, $this->options["keyword"], true);
- 	    if (($this->options["default"]=="apply" && !$post_status=="false") 
+	    $post_status = get_post_meta($post->ID, $this->options["lwm_http_caching_keyword"], true);
+ 	    if (($this->options["lwm_http_caching_default"]=="apply" && !$post_status=="false") 
 	         || $post_status == "true") {
 		       // Inspired from http://svn.automattic.com/wordpress/tags/2.1/wp-includes/classes.php
 		       // where it's only used for feeds		       
