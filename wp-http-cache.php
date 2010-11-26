@@ -202,7 +202,7 @@ if (!class_exists('lwm_http_caching')) {
                 <form method="post" id="lwm_http_caching_options">
                 <?php wp_nonce_field('lwm_http_caching-update-options'); ?>
 		<p><?php _e("This plugin makes Wordpress send information to browsers, so that they don’t reload needlessly a page if it hasn’t changed since the last time they’ve visited it — this is particularly usefull for mobile browsers on which network connectivitity can be problematic.", $this->localizationDomain);?></p>
-		<p><?php _e("This shouldn’t be used on posts and pages that load content not managed by Wordpress; the configuration options below allow to define which pages should be excluded from the realm of this plugin.", $this->localizationDomain);</p>
+		<p><?php _e("This shouldn’t be used on posts and pages that load content not managed by Wordpress; the configuration options below allow to define which pages should be excluded from the realm of this plugin.", $this->localizationDomain);?></p>
 
 		<fieldset>
 	       <p><label for='lwm_http_caching_keyword'><?php _e("Custom field used to mark pages/posts where to apply the plugin or not", $this->localizationDomain);?>: <input type="text" name="lwm_http_caching_keyword" value="<?php echo $this->options['lwm_http_caching_keyword'];?>" id="lwm_http_caching_keyword"/></label></p>
