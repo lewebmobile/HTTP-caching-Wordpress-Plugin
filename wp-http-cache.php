@@ -198,13 +198,18 @@ if (!class_exists('lwm_http_caching')) {
             }
 ?>                                   
                 <div class="wrap">
-                <h2>HTTP Caching</h2>
+                <h2><?php _e("HTTP Caching, $this->localizationDomain);?></h2>
                 <form method="post" id="lwm_http_caching_options">
                 <?php wp_nonce_field('lwm_http_caching-update-options'); ?>
-		<fieldset><legend><?php _e('Default behavior:', $this->localizationDomain); ?></legend>
-               <label for='lwm_http_caching_default_dont'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_dont" value="dontapply" <?php if ($this->options['lwm_http_caching_default']=='dontapply') { echo " checked='checked'";} ?>"/><?php _e('Don’t apply unless the custom field is set to true', $this->localizationDomain);?></label><br /><label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";}?>"/><?php _e('Apply unless custom field is set to false', $this->localizationDomain);?></label>
+		<p><?php _e("This plugin makes Wordpress send information to browsers, so that they don’t reload needlessly a page if it hasn’t changed since the last time they’ve visited it — this is particularly usefull for mobile browsers on which network connectivitity can be problematic.", $this->localizationDomain);?></p>
+		<p><?php _e("This shouldn’t be used on posts and pages that load content not managed by Wordpress; the configuration options below allow to define which pages should be excluded from the realm of this plugin.", $this->localizationDomain);</p>
+
+		<fieldset>
+	       <p><label for='lwm_http_caching_keyword'><?php _e("Custom field used to mark pages/posts where to apply the plugin or not", $this->localizationDomain);?>: <input type="text" name="lwm_http_caching_keyword" value="<?php echo $this->options['lwm_http_caching_keyword'];?>" id="lwm_http_caching_keyword"/></label></p>
+
+               <label for='lwm_http_caching_default_dont'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_dont" value="dontapply" <?php if ($this->options['lwm_http_caching_default']=='dontapply') { echo " checked='checked'";} ?>"/><?php _e('Don’t apply the plugin to any posts and pages, except those on which the custom field is set to "true"', $this->localizationDomain);?></label><br />
+	       <label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";}?>"/><?php _e('Apply to all posts and pages, except those on which the custom field is set to "false"', $this->localizationDomain);?></label>
 	       </fieldset>
-	       <p><label for='lwm_http_caching_keyword'><?php _e("Custom field used to mark pages/posts", $this->locaizationDomain);?>: <input type="text" name="lwm_http_caching_keyword" value="<?php echo $this->options['lwm_http_caching_keyword'];?>" id="lwm_http_caching_keyword"/></label></p>
 
 	       <p><input type="submit" name="lwm_http_caching_save" value="Save" /></p>
                 </form>
