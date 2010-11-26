@@ -107,8 +107,8 @@ if (!class_exists('lwm_http_caching')) {
 	function set_http_headers() {
    	    global $post;
 	    global $wp_query;
-	    $post_status = get_post_meta($post->ID, $this->options["lwm_http_caching_keyword"], true);
- 	    if (($this->options["lwm_http_caching_default"]=="apply" && !$post_status=="false") 
+	    $post_status = get_post_meta($post->ID, $this->options["keyword"], true);
+ 	    if (($this->options["default"]=="apply" && !$post_status=="false") 
 	         || $post_status == "true") {
 		       // Inspired from http://svn.automattic.com/wordpress/tags/2.1/wp-includes/classes.php
 		       // where it's only used for feeds		       
@@ -144,8 +144,8 @@ if (!class_exists('lwm_http_caching')) {
         function getOptions() {
             //Don't forget to set up the default options
             if (!$theOptions = get_option($this->optionsName)) {
-                $theOptions = array('lwm_http_caching_default'=>'dontapply',
-				    'lwm_http_caching_keyword'=>'static');
+                $theOptions = array('default'=>'dontapply',
+				    'keyword'=>'static');
                 update_option($this->optionsName, $theOptions);
             }
             $this->options = $theOptions;
@@ -189,8 +189,8 @@ if (!class_exists('lwm_http_caching')) {
         function admin_options_page() { 
             if($_POST['lwm_http_caching_save']){
                 if (! wp_verify_nonce($_POST['_wpnonce'], 'lwm_http_caching-update-options') ) die('Whoops! There was a problem with the data you posted. Please go back and try again.'); 
-                $this->options['lwm_http_caching_default'] = $_POST['lwm_http_caching_default'];                   
-                $this->options['lwm_http_caching_keyword'] = $_POST['lwm_http_caching_keyword'];
+                $this->options['default'] = $_POST['lwm_http_caching_default'];                   
+                $this->options['keyword'] = $_POST['lwm_http_caching_keyword'];
                                         
                 $this->saveAdminOptions();
                 
