@@ -1,4 +1,12 @@
-By default, Wordpress gives up on sending any Last-Modified header to the client when serving HTML content (pages, blog posts), on the assumption that the said content might contain content from sources it doesn't know about.
+This plugin makes Wordpress send information to browsers, so that they don’t reload needlessly a page if it hasn’t changed since the last time they’ve visited it — this is particularly usefull for mobile browsers on which network connectivitity can be problematic.
+
+This shouldn’t be used on posts and pages that load content not managed by Wordpress; the plugin can be configured to define which pages should be excluded from the realm of this plugin.
+
+In particular, this plugin is best suited for sites and blogs that don’t import lots of content from other systems and sites.
+
+== Under the Hood ==
+
+By default, Wordpress gives up on sending any Last-Modified HTTP header to the client when serving HTML content (pages, blog posts), on the assumption that the said content might contain content from sources it doesn't know about.
 
 This plugin fixes this by sending the said header for pages and posts marked with the "static" keyword.
 
