@@ -207,8 +207,8 @@ if (!class_exists('lwm_http_caching')) {
 		<fieldset>
 	       <p><label for='lwm_http_caching_keyword'><?php _e("Custom field used to mark pages/posts where to apply the plugin or not", $this->localizationDomain);?>: <input type="text" name="lwm_http_caching_keyword" value="<?php echo $this->options['lwm_http_caching_keyword'];?>" id="lwm_http_caching_keyword"/></label></p>
 
-               <label for='lwm_http_caching_default_dont'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_dont" value="dontapply" <?php if ($this->options['lwm_http_caching_default']=='dontapply') { echo " checked='checked'";} ?>"/><?php _e('Don’t apply the plugin to any posts and pages, except those on which the custom field is set to "true"', $this->localizationDomain);?></label><br />
-	       <label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";}?>"/><?php _e('Apply to all posts and pages, except those on which the custom field is set to "false"', $this->localizationDomain);?></label>
+               <label for='lwm_http_caching_default_dont'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_dont" value="dontapply" <?php if ($this->options['lwm_http_caching_default']=='dontapply') { echo " checked='checked'";} ?>"/> <?php _e('Don’t apply the plugin to any posts and pages, except those on which the custom field is set to "true"', $this->localizationDomain);?></label><br />
+	       <label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";}?>"/> <?php _e('Apply to all posts and pages, except those on which the custom field is set to "false"', $this->localizationDomain);?></label>
 	       </fieldset>
 
 	       <p><input type="submit" name="lwm_http_caching_save" value="Save" /></p>
