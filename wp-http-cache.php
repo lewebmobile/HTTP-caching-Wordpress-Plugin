@@ -194,7 +194,9 @@ if (!class_exists('lwm_http_caching')) {
                                         
                 $this->saveAdminOptions();
                 
-                echo '<div class="updated"><p>Success! Your changes were sucessfully saved!</p></div>';
+                echo '<div class="updated"><p>';
+		_e("Success! Your changes were sucessfully saved!", $this->localizationDomain);
+		echo '</p></div>';
             }
 ?>                                   
                 <div class="wrap">
@@ -211,7 +213,7 @@ if (!class_exists('lwm_http_caching')) {
 	       <label for='lwm_http_caching_default_do'><input name="lwm_http_caching_default" type="radio" id="lwm_http_caching_default_do" value="apply" <?php if ($this->options['lwm_http_caching_default']=='apply') { echo " checked='checked'";}?>"/> <?php _e('Apply to all posts and pages, except those on which the custom field is set to "false"', $this->localizationDomain);?></label>
 	       </fieldset>
 
-	       <p><input type="submit" name="lwm_http_caching_save" value="Save" /></p>
+	       <p><input type="submit" name="lwm_http_caching_save" value="<?php _e('Save', $this->localizationDomain);?>" /></p>
                 </form>
                 <?php
         }
