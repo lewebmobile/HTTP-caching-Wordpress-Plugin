@@ -198,7 +198,7 @@ if (!class_exists('lwm_http_caching')) {
             }
 ?>                                   
                 <div class="wrap">
-                <h2><?php _e("HTTP Caching, $this->localizationDomain);?></h2>
+                <h2><?php _e("HTTP Caching", $this->localizationDomain);?></h2>
                 <form method="post" id="lwm_http_caching_options">
                 <?php wp_nonce_field('lwm_http_caching-update-options'); ?>
 		<p><?php _e("This plugin makes Wordpress send information to browsers, so that they don’t reload needlessly a page if it hasn’t changed since the last time they’ve visited it — this is particularly usefull for mobile browsers on which network connectivitity can be problematic.", $this->localizationDomain);?></p>
