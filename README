@@ -11,3 +11,6 @@ By default, Wordpress gives up on sending any Last-Modified HTTP header to the c
 This plugin fixes this by sending the said header for pages and posts marked with the "static" keyword.
 
 It only works with Wordpress 3.1+ (or versions of Wordpress where the patch to bug #14922 have been applied http://core.trac.wordpress.org/ticket/14922 ), unless Wordpress is used only to manage posts (and not e.g. pages).
+
+== TODO ==
+* build and include last-modification date of template files
